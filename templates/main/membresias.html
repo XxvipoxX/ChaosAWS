@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Membresías - ChaosCompany{% endblock %}
+
+{% block content %}
+    <header class="hero">
+        <h2>Elige el plan que mejor se adapte a tus necesidades y disfruta de la mejor experiencia de juego en la nube</h2>
+        <a href="{% url 'gamepass' %}" class="btn btn-primary">Ver Gamepass</a>
+    </header>
+
+    <section class="membership-section">
+        <div class="plans-grid">
+            <div class="plan">
+                <h3>Gratis</h3>
+                <p class="price">$0/mes</p>
+                <ul>
+                    <li>Acceso a 50 juegos</li>
+                    <li>Calidad de streaming 720p</li>
+                    <li>Soporte básico</li>
+                </ul>
+                <form method="POST" action="{% url 'add_to_cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="plan_type" value="free">
+                    <input type="hidden" name="price" value="0">
+                    <button type="submit" class="btn btn-primary">Elegir plan</button>
+                </form>
+            </div>
+            <div class="plan">
+                <h3>Estándar</h3>
+                <p class="price">$200/mes</p>
+                <ul>
+                    <li>Acceso a 100 juegos</li>
+                    <li>Calidad de streaming 1080p</li>
+                    <li>Soporte prioritario</li>
+                </ul>
+                <form method="POST" action="{% url 'add_to_cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="plan_type" value="standard">
+                    <input type="hidden" name="price" value="200">
+                    <button type="submit" class="btn btn-primary">Elegir plan</button>
+                </form>
+            </div>
+            <div class="plan">
+                <h3>Ultimate</h3>
+                <p class="price">$800/mes</p>
+                <ul>
+                    <li>Acceso a todos los juegos</li>
+                    <li>Calidad de streaming 4K</li>
+                    <li>Soporte premium 24/7</li>
+                </ul>
+                <form method="POST" action="{% url 'add_to_cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="plan_type" value="ultimate">
+                    <input type="hidden" name="price" value="800">
+                    <button type="submit" class="btn btn-primary">Elegir plan</button>
+                </form>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <p class="current-plan">Tu plan actual: {{ user.membership_type|default:"Gratis"|title }}</p>
+        {% endif %}
+    </section>
+{% endblock %}

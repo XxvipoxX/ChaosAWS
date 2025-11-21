@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}GamePass - ChaosCompany{% endblock %}
+
+{% block content %}
+    <section class="library-section">
+        <h2>Tu Biblioteca de Juegos</h2>
+        <p>Explora miles de juegos favoritos Ready-to-Play y entra al instante con la potencia de GeForce RTX. Conecta tus bibliotecas y disfruta tu colección completa.</p>
+        <div class="filters">
+            <label for="game-filter">Filtros</label>
+            <select id="game-filter">
+                <option value="all">Todos los Juegos</option>
+                <option value="accion">Acción</option>
+                <option value="aventura">Aventura</option>
+                <option value="rpg">RPG</option>
+                <option value="deportes">Deportes</option>
+                <option value="indie">Indie</option>
+            </select>
+        </div>
+        <div class="game-grid">
+            <!-- Juegos de Acción -->
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row1/fortnite.jpg' %}" alt="Fortnite">
+                <div class="game-info">
+                    <h3>Fortnite</h3>
+                    <p>Battle Royale épico con construcción y acción multijugador.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row1/valorant.jpg' %}" alt="Valorant">
+                <div class="game-info">
+                    <h3>Valorant</h3>
+                    <p>Shooter táctico 5v5 con agentes únicos.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row1/doom.jpg' %}" alt="DOOM Eternal">
+                <div class="game-info">
+                    <h3>DOOM Eternal</h3>
+                    <p>Shooter frenético contra demonios del infierno.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row3/resident evil.jpg' %}" alt="Resident Evil 4">
+                <div class="game-info">
+                    <h3>Resident Evil 4</h3>
+                    <p>Survival horror con acción intensa y combates estratégicos.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row2/spider man 2.jpg' %}" alt="Spider-Man 2">
+                <div class="game-info">
+                    <h3>Spider-Man 2</h3>
+                    <p>Aventura superheroica en Nueva York abierta.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion">
+                <img src="{% static 'Imagenes/row2/wukong.jpg' %}" alt="Black Myth: Wukong">
+                <div class="game-info">
+                    <h3>Black Myth: Wukong</h3>
+                    <p>Acción inspirada en la mitología china.</p>
+                </div>
+            </div>
+
+            <!-- Juegos de Aventura -->
+            <div class="game-card" data-category="aventura">
+                <img src="{% static 'Imagenes/row2/alanwake2.jpg' %}" alt="Alan Wake 2">
+                <div class="game-info">
+                    <h3>Alan Wake 2</h3>
+                    <p>Thriller psicológico con elementos de survival horror.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="aventura">
+                <img src="{% static 'Imagenes/row2/avatar.jpg' %}" alt="Avatar: Frontiers of Pandora">
+                <div class="game-info">
+                    <h3>Avatar: Frontiers of Pandora</h3>
+                    <p>Exploración en el mundo de Pandora como Na'vi.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="aventura">
+                <img src="{% static 'Imagenes/row3/hogwarts.jpg' %}" alt="Hogwarts Legacy">
+                <div class="game-info">
+                    <h3>Hogwarts Legacy</h3>
+                    <p>Aventura mágica en el mundo de Harry Potter.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="aventura">
+                <img src="{% static 'Imagenes/row3/red dead.jpg' %}" alt="Red Dead Redemption 2">
+                <div class="game-info">
+                    <h3>Red Dead Redemption 2</h3>
+                    <p>Aventura del lejano oeste con historia profunda.</p>
+                </div>
+            </div>
+
+            <!-- Juegos que pertenecen a MÚLTIPLES categorías (sin duplicar) -->
+            <div class="game-card" data-category="accion rpg">
+                <img src="{% static 'Imagenes/row1/cyberpunk.jpg' %}" alt="Cyberpunk 2077">
+                <div class="game-info">
+                    <h3>Cyberpunk 2077</h3>
+                    <p>RPG de mundo abierto en una ciudad futurista distópica.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="aventura rpg">
+                <img src="{% static 'Imagenes/row1/the witcher3.jpg' %}" alt="The Witcher 3">
+                <div class="game-info">
+                    <h3>The Witcher 3: Wild Hunt</h3>
+                    <p>Aventura épica de fantasía con Geralt de Rivia.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="accion rpg">
+                <img src="{% static 'Imagenes/row3/god of war.jpg' %}" alt="God of War">
+                <div class="game-info">
+                    <h3>God of War</h3>
+                    <p>Acción y aventura épica con Kratos en la mitología nórdica.</p>
+                </div>
+            </div>
+
+            <!-- Juegos de RPG adicionales -->
+            <div class="game-card" data-category="rpg">
+                <img src="{% static 'Imagenes/row2/starfield.jpg' %}" alt="Starfield">
+                <div class="game-info">
+                    <h3>Starfield</h3>
+                    <p>Exploración espacial y RPG en un vasto universo.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="rpg">
+                <img src="{% static 'Imagenes/row2/elden ring.jpg' %}" alt="Elden Ring">
+                <div class="game-info">
+                    <h3>Elden Ring</h3>
+                    <p>RPG de mundo abierto con combates desafiantes.</p>
+                </div>
+            </div>
+
+            <!-- Juegos de Deportes -->
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/row3/fifa 24.jpeg' %}" alt="FIFA 24">
+                <div class="game-info">
+                    <h3>FIFA 24</h3>
+                    <p>Simulación de fútbol con equipos y ligas reales.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/row3/nba.jpg' %}" alt="NBA 2K24">
+                <div class="game-info">
+                    <h3>NBA 2K24</h3>
+                    <p>Simulación de baloncesto con jugadores reales.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/deportes/madden.jpg' %}" alt="Madden NFL 24">
+                <div class="game-info">
+                    <h3>Madden NFL 24</h3>
+                    <p>Simulación de fútbol americano profesional.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/deportes/f1.jpeg' %}" alt="F1 2023">
+                <div class="game-info">
+                    <h3>F1 2023</h3>
+                    <p>Carreras de Fórmula 1 con equipos oficiales.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/deportes/tonyhawk.jpg' %}" alt="Tony Hawk's Pro Skater">
+                <div class="game-info">
+                    <h3>Tony Hawk's Pro Skater</h3>
+                    <p>Skateboarding extremo con trucos y combos.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="deportes">
+                <img src="{% static 'Imagenes/deportes/rocketleague.jpg' %}" alt="Rocket League">
+                <div class="game-info">
+                    <h3>Rocket League</h3>
+                    <p>Fútbol con coches rocket, deporte y acción.</p>
+                </div>
+            </div>
+
+            <!-- Juegos Indie -->
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/row1/among-us.jpg' %}" alt="Among Us">
+                <div class="game-info">
+                    <h3>Among Us</h3>
+                    <p>Juego social de deducción y traición en la tripulación.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/indie/hades.png' %}" alt="Hades">
+                <div class="game-info">
+                    <h3>Hades</h3>
+                    <p>Roguelike de acción en el inframundo griego.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/indie/stardew.jpg' %}" alt="Stardew Valley">
+                <div class="game-info">
+                    <h3>Stardew Valley</h3>
+                    <p>Simulación de granja y vida rural.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/indie/celeste.jpg' %}" alt="Celeste">
+                <div class="game-info">
+                    <h3>Celeste</h3>
+                    <p>Plataformas desafiantes con historia conmovedora.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/indie/hollow.jpg' %}" alt="Hollow Knight">
+                <div class="game-info">
+                    <h3>Hollow Knight</h3>
+                    <p>Aventura de acción en un mundo de insectos.</p>
+                </div>
+            </div>
+            <div class="game-card" data-category="indie">
+                <img src="{% static 'Imagenes/indie/fallguys.jpg' %}" alt="Fall Guys">
+                <div class="game-info">
+                    <h3>Fall Guys</h3>
+                    <p>Battle royale divertido con obstáculos y minijuegos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature">
+                <h3>La Potencia de GeForce RTX, Ahora en la Nube</h3>
+                <p>Disfruta la potencia de una PC gaming GeForce de alto nivel: FPS al máximo, ray tracing y latencia ultra baja.</p>
+            </div>
+            <div class="feature">
+                <h3>Transmite más de 4,000 juegos</h3>
+                <p>Transmite al instante más de 2,000 juegos favoritos listos para jugar, incluidos los éxitos AAA más populares.</p>
+            </div>
+            <div class="feature">
+                <h3>Juega en Cualquier Dispositivo</h3>
+                <p>Transforma tu Mac, TV, teléfono, iPad, consola portátil y más en una potente PC para jugar.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="premium-section">
+        <h2>Obtén el Mejor Rendimiento con una Membresía Premium</h2>
+        <p>¿Listo para el gaming de otro nivel? Nuestras membresías premium ofrecen resoluciones más altas y más.</p>
+        <a href="{% url 'membresias' %}" class="btn btn-primary">Conoce los planes premium que tenemos para ti.</a>
+    </section>
+
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalGameTitle">Jugar</h2>
+            <div class="modal-body">
+                <p>Preparando tu sesión de juego...</p>
+                <div class="loading-spinner"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary btn-cancelar">Cancelar</button>
+                <button class="btn btn-primary btn-confirmar">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterSelect = document.getElementById('game-filter');
+            const gameCards = document.querySelectorAll('.game-card');
+            
+            filterSelect.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                
+                gameCards.forEach(card => {
+                    if (selectedCategory === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        if (categories.includes(selectedCategory)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .game-card {
+            transition: all 0.3s ease;
+        }
+        
+        .game-card[style*="display: none"] {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .game-card[style*="display: block"] {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+{% endblock %}

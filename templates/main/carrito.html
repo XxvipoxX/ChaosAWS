@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Carrito de Compras - ChaosCompany{% endblock %}
+
+{% block content %}
+    <section class="cart-section-dark">
+        <div class="cart-header-dark">
+            <h1><i class="fas fa-shopping-cart"></i> Tu carrito de compras</h1>
+            <div class="cart-steps-dark">
+                <div class="step-dark active">
+                    <span class="step-number-dark">1</span>
+                    <span class="step-text-dark">Carrito</span>
+                </div>
+                <div class="step-dark">
+                    <span class="step-number-dark">2</span>
+                    <span class="step-text-dark">Login</span>
+                </div>
+                <div class="step-dark">
+                    <span class="step-number-dark">3</span>
+                    <span class="step-text-dark">Pago</span>
+                </div>
+                <div class="step-dark">
+                    <span class="step-number-dark">4</span>
+                    <span class="step-text-dark">Confirmación</span>
+                </div>
+            </div>
+        </div>
+
+        {% if cart_items %}
+        <div class="cart-layout-dark">
+            <!-- Columna izquierda - Productos -->
+            <div class="cart-products-dark">
+                <div class="cart-products-header-dark">
+                    <h2>Suscripción seleccionada</h2>
+                    <p class="subscription-note">Acceso inmediato • Cancelación en cualquier momento</p>
+                </div>
+                
+                {% for item in cart_items %}
+                <div class="cart-product-card-dark">
+                    <div class="product-image-dark">
+                        <div class="subscription-badge">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                    </div>
+                    <div class="product-details-dark">
+                        <h3 class="product-title-dark">Plan {{ item.plan_type|title }}</h3>
+                        <p class="product-description-dark">Suscripción mensual • Renovación automática</p>
+                        <div class="product-features-dark">
+                            {% if item.plan_type == 'free' %}
+                                <span class="feature-tag-dark">🎮 50 juegos</span>
+                                <span class="feature-tag-dark">📺 720p</span>
+                                <span class="feature-tag-dark">💬 Soporte básico</span>
+                            {% elif item.plan_type == 'standard' %}
+                                <span class="feature-tag-dark">🎮 100 juegos</span>
+                                <span class="feature-tag-dark">📺 1080p Full HD</span>
+                                <span class="feature-tag-dark">🚀 Soporte prioritario</span>
+                            {% else %}
+                                <span class="feature-tag-dark">🎮 Todos los juegos</span>
+                                <span class="feature-tag-dark">📺 4K Ultra HD</span>
+                                <span class="feature-tag-dark">⭐ Soporte premium 24/7</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="product-price-dark">
+                        <div class="price-main-dark">
+                            {% if item.plan_type == 'free' %}
+                                <span class="free-price">Gratis</span>
+                            {% else %}
+                                ${{ item.price }}<span class="price-period-dark">/mes</span>
+                            {% endif %}
+                        </div>
+                        {% if item.plan_type != 'free' %}
+                            <div class="price-savings-dark">💰 Ahorras 20% vs compra individual</div>
+                        {% endif %}
+                    </div>
+                    <div class="product-actions-dark">
+                        <form method="POST" action="{% url 'remove_from_cart' %}" class="remove-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="plan_type" value="{{ item.plan_type }}">
+                            <button type="submit" class="btn-remove-dark">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="benefits-card-dark">
+                    <h3><i class="fas fa-rocket"></i> Comienza a jugar inmediatamente</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Acceso instantáneo</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-sync"></i>
+                            <span>Actualizaciones gratuitas</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Juegos verificados</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-cloud"></i>
+                            <span>Streaming en la nube</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha - Resumen -->
+            <div class="cart-summary-dark">
+                <div class="summary-card-dark">
+                    <h3 class="summary-title-dark">Resumen de la suscripción</h3>
+                    
+                    <div class="summary-details-dark">
+                        <div class="summary-row-dark">
+                            <span>Suscripción:</span>
+                            <span>Plan {{ cart_items.0.plan_type|title }}</span>
+                        </div>
+                        <div class="summary-row-dark">
+                            <span>Precio mensual:</span>
+                            <span>
+                                {% if cart_items.0.plan_type == 'free' %}
+                                    Gratis
+                                {% else %}
+                                    ${{ total_price }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% if cart_items.0.plan_type != 'free' %}
+                        <div class="summary-row-dark">
+                            <span>Impuestos (16%):</span>
+                            <span>${{ tax_amount }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="summary-total-dark">
+                        <div class="total-row-dark">
+                            <span>Total mensual:</span>
+                            <span class="total-price-dark">
+                                {% if cart_items.0.plan_type == 'free' %}
+                                    Gratis
+                                {% else %}
+                                    ${{ grand_total }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="total-message-dark">
+                            <i class="fas fa-lock"></i>
+                            <span>Pago 100% seguro</span>
+                        </div>
+                    </div>
+
+                   <div class="summary-actions-dark">
+    {% if user.is_authenticated %}
+        <!-- Cambia el formulario por un simple enlace: -->
+        <a href="{% url 'payment_page' %}" class="btn-checkout-dark">
+            <i class="fas fa-credit-card"></i>
+            {% if cart_items.0.plan_type == 'free' %}
+                Activar suscripción gratis
+            {% else %}
+                Continuar con el pago
+            {% endif %}
+        </a>
+        <div class="secure-payment-dark">
+            <p><i class="fas fa-shield-alt"></i> Transacción protegida y encriptada</p>
+        </div>
+    {% else %}
+        <div class="guest-checkout-dark">
+            <p>Para activar tu suscripción:</p>
+            <a href="{% url 'login' %}?next={% url 'cart' %}" class="btn-login-dark">
+                <i class="fas fa-user"></i>
+                Iniciar sesión
+            </a>
+            <a href="{% url 'signup' %}?next={% url 'cart' %}" class="btn-signup-dark">
+                <i class="fas fa-user-plus"></i>
+                Crear cuenta
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+                    <div class="subscription-info-dark">
+                        <h4><i class="fas fa-info-circle"></i> Información de la suscripción</h4>
+                        <ul class="subscription-list">
+                            <li><i class="fas fa-check"></i> Acceso inmediato al activar</li>
+                            <li><i class="fas fa-check"></i> Renovación mensual automática</li>
+                            <li><i class="fas fa-check"></i> Cancela cuando quieras</li>
+                            <li><i class="fas fa-check"></i> Sin compromisos a largo plazo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="support-banner-dark">
+                    <div class="support-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="support-content">
+                        <strong>Soporte ChaosCompany</strong>
+                        <span>¿Necesitas ayuda? Contáctanos 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-cart-dark">
+            <div class="empty-cart-icon-dark">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            <h2>Tu carrito está vacío</h2>
+            <p>Descubre nuestros planes y comienza tu aventura gaming hoy mismo</p>
+            <a href="{% url 'membresias' %}" class="btn-continue-shopping-dark">
+                <i class="fas fa-arrow-left"></i>
+                Ver planes disponibles
+            </a>
+        </div>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}

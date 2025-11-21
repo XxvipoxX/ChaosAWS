@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Perfil - {{ user.username }} - ChaosCompany{% endblock %}
+
+{% block content %}
+<div class="xbox-profile-container">
+    <!-- Header estilo Xbox -->
+    <div class="profile-header-xbox">
+        <div class="profile-banner">
+            <div class="banner-overlay"></div>
+            <div class="profile-identity">
+                <div class="avatar-container">
+                    <!-- CORRECCIÓN: Usar get_profile_picture_url -->
+                    <img class="profile-avatar-xbox" 
+                         src="{{ user.get_profile_picture_url }}" 
+                         alt="{{ user.username }}"
+                         onerror="this.src='{% static 'assets/avatar_default.jpg' %}'">
+                    <div class="online-status {% if user.is_authenticated %}online{% else %}offline{% endif %}"></div>
+                </div>
+                <div class="profile-info">
+                    <h1 class="gamertag">{{ user.username }}</h1>
+                    <div class="gamer-score">
+                        <span class="score">1,250</span>
+                        <span class="score-label">GamerScore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- El resto del template permanece igual -->
+    <div class="profile-content-xbox">
+        <div class="profile-grid">
+            <!-- Columna izquierda - Stats y Info -->
+            <div class="left-column">
+                <!-- Tarjeta de información personal -->
+                <div class="info-card">
+                    <h3 class="card-title">Información del Perfil</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nombre real</span>
+                            <span class="info-value">{{ user.first_name }} {{ user.last_name }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Correo</span>
+                            <span class="info-value">{{ user.email }}</span>
+                        </div>
+                        {% if user.birth_date %}
+                        <div class="info-item">
+                            <span class="info-label">Fecha nacimiento</span>
+                            <span class="info-value">{{ user.birth_date|date:"d/m/Y" }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="info-item">
+                            <span class="info-label">Miembro desde</span>
+                            <span class="info-value">{{ user.date_joined|date:"d/m/Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de membresía -->
+                <div class="membership-card">
+                    <div class="membership-header">
+                        <h3 class="card-title">Membresía</h3>
+                        <span class="membership-badge {{ user.membership_type }}">
+                            {{ user.get_membership_type_display }}
+                        </span>
+                    </div>
+                    <div class="membership-status">
+                        {% if user.is_membership_active %}
+                        <div class="status-active">
+                            <i class="fas fa-crown"></i>
+                            <span class="status-text">Activa</span>
+                        </div>
+                        <div class="membership-details">
+                            <div class="detail-item">
+                                <span>Expiración:</span>
+                                <strong>{{ user.membership_expiry|date:"d/m/Y" }}</strong>
+                            </div>
+                            <div class="detail-item">
+                                <span>Días restantes:</span>
+                                <strong class="days-remaining">{{ user.get_remaining_days }}</strong>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="status-inactive">
+                            <i class="fas fa-clock"></i>
+                            <span class="status-text">Inactiva</span>
+                        </div>
+                        <a href="{% url 'membresias' %}" class="upgrade-button">
+                            <i class="fas fa-rocket"></i>
+                            Actualizar Membresía
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha - Logros y Actividad -->
+            <div class="right-column">
+                <!-- Tarjeta de estadísticas -->
+                <div class="stats-card">
+                    <h3 class="card-title">Estadísticas</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number">47</span>
+                                <span class="stat-label">Juegos jugados</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number">128</span>
+                                <span class="stat-label">Logros</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number">156h</span>
+                                <span class="stat-label">Tiempo jugado</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number">23</span>
+                                <span class="stat-label">Amigos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de logros recientes -->
+                <div class="achievements-card">
+                    <h3 class="card-title">Logros Recientes</h3>
+                    <div class="achievements-list">
+                        <div class="achievement-item">
+                            <div class="achievement-icon bronze">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <span class="achievement-title">Primeros pasos</span>
+                                <span class="achievement-game">Chaos Adventure</span>
+                                <span class="achievement-date">Hoy</span>
+                            </div>
+                            <span class="achievement-points">5G</span>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon silver">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <span class="achievement-title">Explorador nato</span>
+                                <span class="achievement-game">Cyber Realm</span>
+                                <span class="achievement-date">Ayer</span>
+                            </div>
+                            <span class="achievement-points">25G</span>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon gold">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="achievement-info">
+                                <span class="achievement-title">Maestro del caos</span>
+                                <span class="achievement-game">Doom Battle</span>
+                                <span class="achievement-date">2 días</span>
+                            </div>
+                            <span class="achievement-points">100G</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones rápidas -->
+        <div class="quick-actions">
+            <a href="{% url 'edit_profile' %}" class="action-button edit-profile">
+                <i class="fas fa-edit"></i>
+                <span>Editar perfil</span>
+            </a>
+            <a href="{% url 'index' %}" class="action-button home">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            {% if not user.is_membership_active %}
+            <a href="{% url 'membresias' %}" class="action-button upgrade">
+                <i class="fas fa-gem"></i>
+                <span>Mejorar</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

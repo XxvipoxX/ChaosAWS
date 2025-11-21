@@ -1,0 +1,1297 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil - ChaosCompany{% endblock %}
+
+{% block content %}
+<div class="profile-edit-container">
+    <div class="profile-edit-header">
+        <h1><i class="fas fa-user-edit"></i> Editar Perfil</h1>
+        <p>Personaliza tu información y avatar</p>
+    </div>
+
+    <div class="profile-edit-content">
+        <form method="post" class="profile-edit-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Sección de Avatar -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-id-card"></i> Avatar & Identidad</h2>
+                    <span class="section-badge">Obligatorio</span>
+                </div>
+                
+                <div class="avatar-selector-container">
+                    <!-- Vista Previa del Avatar -->
+                    <div class="avatar-preview-section">
+                        <div class="avatar-preview-card">
+                            <div class="preview-header">
+                                <h3>Vista Previa</h3>
+                                <div class="online-indicator online"></div>
+                            </div>
+                            <div class="avatar-preview">
+                               <img src="{{ user.get_profile_picture_url }}" 
+                                    alt="Avatar actual" class="preview-image" id="avatar-preview">
+                                <div class="preview-overlay">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="default-indicator" id="default-indicator">
+                                    <i class="fas fa-star"></i> Predeterminado
+                                </div>
+                            </div>
+                            <div class="preview-info">
+                                <span class="gamertag">{{ user.username|default:"TuGamertag" }}</span>
+                                <span class="membership-badge {{ user.membership_type|default:'free' }}">
+                                    {{ user.get_membership_type_display|default:"Gratis" }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Opciones de Avatar -->
+                    <div class="avatar-options-section">
+                        <div class="options-tabs">
+                            <div class="tab-buttons">
+                                <button type="button" class="tab-button active" data-tab="default">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Avatares del Sistema</span>
+                                </button>
+                                <button type="button" class="tab-button" data-tab="custom">
+                                    <i class="fas fa-upload"></i>
+                                    <span>Personalizado</span>
+                                </button>
+                            </div>
+
+                            <div class="tab-content">
+                                <!-- Avatares Predeterminados -->
+                                <div class="tab-panel active" id="default-panel">
+                                    <div class="avatar-grid-header">
+                                        <h4>Elige tu avatar</h4>
+                                        <span class="avatar-count">8 opciones disponibles</span>
+                                    </div>
+                                    <div class="avatar-selection-grid">
+                                        <!-- Avatar Predeterminado -->
+                                        <div class="avatar-option selected" data-avatar="avatar_default.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/avatar_default.jpg' %}" alt="Predeterminado">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                                <div class="avatar-default-badge">
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Predeterminado</span>
+                                        </div>
+
+                                        <div class="avatar-option" data-avatar="Calavera.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Calavera.jpg' %}" alt="Calavera">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Calavera</span>
+                                        </div>
+
+                                     <div class="avatar-option" data-avatar="Halo.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Halo.jpg' %}" alt="Halo">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">MasterChief</span>
+                                        </div>
+
+                                         <div class="avatar-option" data-avatar="Crepper.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Crepper.jpg' %}" alt="Crepper">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Creeper</span>
+                                        </div>
+
+                                        <div class="avatar-option" data-avatar="Conejo.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Conejo.jpg' %}" alt="Conejo">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Conejo</span>
+                                        </div>
+
+                                       <div class="avatar-option" data-avatar="Dragon.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Dragon.jpg' %}" alt="Dragon">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Dragón</span>
+                                        </div>
+
+                                        <div class="avatar-option" data-avatar="Panda.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Panda.jpg' %}" alt="Panda">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Panda</span>
+                                        </div>
+
+                                          <div class="avatar-option" data-avatar="Chango.jpg">
+                                            <div class="avatar-card">
+                                                <img src="{% static 'assets/Chango.jpg' %}" alt="Chango">
+                                                <div class="avatar-selection-indicator">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                            <span class="avatar-label">Chango</span>
+                                        </div>
+                                    </div>
+                                    <!-- Campo oculto para avatar seleccionado -->
+                                    <input type="hidden" name="selected_avatar" id="selected-avatar" value="avatar_default.jpg">
+                                </div>
+
+                                <!-- Avatar Personalizado -->
+                                <div class="tab-panel" id="custom-panel">
+                                    <div class="custom-upload-container">
+                                        <div class="upload-header">
+                                            <h4><i class="fas fa-cloud-upload-alt"></i> Subir Avatar Personalizado</h4>
+                                            <p>Personaliza tu perfil con tu propia imagen</p>
+                                        </div>
+                                        
+                                        <div class="upload-area" id="upload-area">
+                                            <div class="upload-placeholder">
+                                                <i class="fas fa-image"></i>
+                                                <h5>Arrastra tu imagen aquí</h5>
+                                                <p>o haz clic para seleccionar</p>
+                                                <span class="upload-info">JPG, PNG, GIF • Máx. 5MB</span>
+                                            </div>
+                                            {{ form.profile_picture }}
+                                        </div>
+
+                                        <div class="upload-preview" id="upload-preview">
+                                            <div class="preview-container">
+                                                <img src="" alt="Vista previa" id="custom-preview-image">
+                                                <div class="preview-actions">
+                                                    <button type="button" class="btn-preview-action" id="change-image">
+                                                        <i class="fas fa-sync"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-preview-action btn-remove" id="remove-image">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="upload-tips">
+                                            <h6><i class="fas fa-lightbulb"></i> Recomendaciones:</h6>
+                                            <ul>
+                                                <li>Imagen cuadrada para mejor resultado</li>
+                                                <li>Resolución mínima: 200x200 píxeles</li>
+                                                <li>Fondo transparente preferible</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Información Personal -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-cog"></i> Información Personal</h2>
+                    <span class="section-badge">Obligatorio</span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="id_username">
+                            <i class="fas fa-user"></i>
+                            Nombre de Usuario
+                        </label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="error">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_email">
+                            <i class="fas fa-envelope"></i>
+                            Correo Electrónico
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_first_name">
+                            <i class="fas fa-signature"></i>
+                            Nombre
+                        </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_last_name">
+                            <i class="fas fa-signature"></i>
+                            Apellido
+                        </label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_birth_date">
+                            <i class="fas fa-birthday-cake"></i>
+                            Fecha de Nacimiento
+                        </label>
+                        {{ form.birth_date }}
+                        {% if form.birth_date.errors %}
+                            <div class="error">{{ form.birth_date.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Campo MEMBERSHIP_TYPE - SOLO LECTURA -->
+                    <div class="form-group">
+                        <label for="id_membership_type">
+                            <i class="fas fa-crown"></i>
+                            Tipo de Membresía
+                        </label>
+                        <div class="readonly-field">
+                            <div class="field-value">
+                                <span class="membership-badge {{ user.membership_type }}">
+                                    {{ user.get_membership_type_display }}
+                                </span>
+                            </div>
+                            <div class="field-note">
+                                <i class="fas fa-info-circle"></i>
+                                Para cambiar tu membresía, visita la <a href="{% url 'membresias' %}">página de suscripciones</a>
+                            </div>
+                        </div>
+                        <!-- Campo oculto para mantener el valor en el formulario -->
+                        <input type="hidden" name="membership_type" value="{{ user.membership_type }}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones del Formulario -->
+            <div class="form-actions">
+                <button type="submit" class="btn-save">
+                    <i class="fas fa-save"></i>
+                    Guardar Cambios
+                </button>
+                <a href="{% url 'profile' %}" class="btn-cancel">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+/* ===== ESTRUCTURA PRINCIPAL ===== */
+.profile-edit-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.profile-edit-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--xbox-gray) 0%, var(--xbox-dark) 100%);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--xbox-light);
+}
+
+.profile-edit-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.profile-edit-header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.profile-edit-content {
+    background: var(--xbox-gray);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--xbox-light);
+    overflow: hidden;
+}
+
+.profile-edit-form {
+    padding: 0;
+}
+
+/* ===== SECCIONES DEL PERFIL ===== */
+.profile-section {
+    padding: 2.5rem;
+    border-bottom: 1px solid var(--xbox-light);
+}
+
+.profile-section:last-child {
+    border-bottom: none;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-header h2 {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-badge {
+    background: var(--primary-color);
+    color: #000;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ===== SELECTOR DE AVATAR ===== */
+.avatar-selector-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.avatar-preview-section {
+    position: sticky;
+    top: 2rem;
+}
+
+.avatar-preview-card {
+    background: var(--xbox-dark);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--xbox-light);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.preview-header h3 {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.online-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.avatar-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    overflow: hidden;
+    background: var(--xbox-dark);
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.avatar-preview:hover .preview-overlay {
+    opacity: 1;
+}
+
+.default-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--primary-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: none;
+}
+
+.avatar-preview.has-default .default-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.gamertag {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* ===== OPCIONES DE AVATAR ===== */
+.avatar-options-section {
+    background: var(--xbox-dark);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--xbox-light);
+    overflow: hidden;
+}
+
+.options-tabs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-buttons {
+    display: flex;
+    background: var(--xbox-gray);
+    border-bottom: 1px solid var(--xbox-light);
+}
+
+.tab-button {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.tab-button.active {
+    background: var(--primary-color);
+    color: #000;
+}
+
+.tab-button:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+}
+
+.tab-content {
+    flex: 1;
+    padding: 1.5rem;
+    background: var(--xbox-dark);
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Grid de Avatares */
+.avatar-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.avatar-grid-header h4 {
+    color: var(--text-light);
+    margin: 0;
+}
+
+.avatar-count {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.avatar-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.avatar-option {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.avatar-option:hover {
+    transform: translateY(-5px);
+}
+
+.avatar-card {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 0.5rem;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--xbox-gray);
+}
+
+.avatar-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-selection-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 24px;
+    height: 24px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 0.7rem;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    border: 2px solid var(--xbox-dark);
+}
+
+.avatar-default-badge {
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 0.6rem;
+    border: 2px solid var(--xbox-dark);
+}
+
+.avatar-option.selected .avatar-selection-indicator {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.avatar-option.selected .avatar-card {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(118, 185, 0, 0.4);
+}
+
+.avatar-option.selected .avatar-default-badge {
+    background: #ffd700;
+}
+
+.avatar-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.avatar-option.selected .avatar-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ===== CARGA PERSONALIZADA ===== */
+.custom-upload-container {
+    text-align: center;
+}
+
+.upload-header {
+    margin-bottom: 2rem;
+}
+
+.upload-header h4 {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.upload-header p {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.upload-area {
+    border: 2px dashed var(--xbox-light);
+    border-radius: var(--border-radius);
+    padding: 3rem 2rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: rgba(118, 185, 0, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--primary-color);
+    background: rgba(118, 185, 0, 0.1);
+}
+
+.upload-placeholder {
+    color: var(--text-muted);
+}
+
+.upload-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--primary-color);
+}
+
+.upload-placeholder h5 {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.upload-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+#id_profile_picture {
+    display: none;
+}
+
+.upload-preview {
+    display: none;
+    margin-bottom: 1.5rem;
+}
+
+.upload-preview.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.preview-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-color);
+}
+
+#custom-preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-actions {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.btn-preview-action {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: var(--xbox-dark);
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.btn-preview-action:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+.btn-remove:hover {
+    background: #ff4444;
+    color: white;
+}
+
+.upload-tips {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.upload-tips h6 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.upload-tips li {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.upload-tips li:before {
+    content: "•";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0.5rem;
+}
+
+/* ===== FORMULARIO DE INFORMACIÓN ===== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    background: var(--xbox-dark);
+    border: 1px solid var(--xbox-light);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.2);
+}
+
+.form-group input[type="date"] {
+    color-scheme: dark;
+}
+
+.error {
+    color: #ff4444;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* ===== CAMPO DE SOLO LECTURA ===== */
+.readonly-field {
+    background: var(--xbox-dark);
+    border: 1px solid var(--xbox-light);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    min-height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.field-value {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.membership-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.membership-badge.free {
+    background: #666;
+    color: white;
+}
+
+.membership-badge.standard {
+    background: #0078d4;
+    color: white;
+}
+
+.membership-badge.ultimate {
+    background: linear-gradient(45deg, #ff8c00, #ffd700);
+    color: black;
+}
+
+.field-note {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.field-note a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.field-note a:hover {
+    text-decoration: underline;
+}
+
+/* ===== ACCIONES DEL FORMULARIO ===== */
+.form-actions {
+    padding: 2rem 2.5rem;
+    background: var(--xbox-dark);
+    border-top: 1px solid var(--xbox-light);
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn-save {
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-save:hover {
+    background: #5a9e00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(118, 185, 0, 0.3);
+}
+
+.btn-cancel {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--xbox-light);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+    transform: translateY(-2px);
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 968px) {
+    .avatar-selector-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .avatar-preview-section {
+        position: static;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-edit-container {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+    
+    .profile-section {
+        padding: 1.5rem;
+    }
+    
+    .avatar-selection-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .tab-buttons {
+        flex-direction: column;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar-selection-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .avatar-card {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let selectedAvatar = 'avatar_default.jpg'; // Valor predeterminado
+    
+    // Inicializar con avatar predeterminado seleccionado
+    document.getElementById('selected-avatar').value = selectedAvatar;
+    updateDefaultIndicator(true);
+    
+    // Sistema de tabs
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanels.forEach(panel => panel.classList.remove('active'));
+            
+            this.classList.add('active');
+            document.getElementById(`${tabId}-panel`).classList.add('active');
+            
+            if (tabId === 'custom') {
+                // Al cambiar a custom, mantener el avatar actual en la preview
+                clearAvatarSelections();
+            } else {
+                // Al volver a default, restaurar la selección predeterminada
+                restoreDefaultSelection();
+            }
+        });
+    });
+    
+    // Selección de avatares predeterminados
+    const avatarOptions = document.querySelectorAll('.avatar-option');
+    
+    avatarOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const avatarFile = this.getAttribute('data-avatar');
+            
+            clearAvatarSelections();
+            this.classList.add('selected');
+            updateAvatarPreview('{% static "assets/" %}' + avatarFile);
+            
+            selectedAvatar = avatarFile;
+            document.getElementById('selected-avatar').value = avatarFile;
+            resetCustomUpload();
+            
+            // Actualizar indicador de predeterminado
+            updateDefaultIndicator(avatarFile === 'avatar_default.jpg');
+        });
+    });
+    
+    // Carga de avatar personalizado
+    const fileInput = document.getElementById('id_profile_picture');
+    const uploadArea = document.getElementById('upload-area');
+    const uploadPreview = document.getElementById('upload-preview');
+    const customPreviewImage = document.getElementById('custom-preview-image');
+    
+    // Click en área de upload
+    uploadArea.addEventListener('click', function() {
+        fileInput.click();
+    });
+    
+    // Drag and drop
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('dragover');
+    });
+    
+    uploadArea.addEventListener('dragleave', function() {
+        this.classList.remove('dragover');
+    });
+    
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFileSelection(files[0]);
+        }
+    });
+    
+    // Cambio de archivo
+    fileInput.addEventListener('change', function(e) {
+        if (this.files.length > 0) {
+            handleFileSelection(this.files[0]);
+        }
+    });
+    
+    // Acciones de preview
+    document.getElementById('change-image').addEventListener('click', function() {
+        fileInput.click();
+    });
+    
+    document.getElementById('remove-image').addEventListener('click', function() {
+        resetCustomUpload();
+        // Restaurar avatar predeterminado al eliminar imagen personalizada
+        restoreDefaultSelection();
+    });
+    
+    // Funciones auxiliares
+    function handleFileSelection(file) {
+        // Validaciones
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            alert('Por favor, selecciona una imagen válida (JPG, PNG, GIF, WebP).');
+            return;
+        }
+        
+        if (file.size > 5 * 1024 * 1024) {
+            alert('La imagen debe ser menor a 5MB.');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // Mostrar preview
+            customPreviewImage.src = e.target.result;
+            uploadPreview.classList.add('active');
+            
+            // Actualizar vista previa principal
+            updateAvatarPreview(e.target.result);
+            
+            // Limpiar selección de avatares predeterminados
+            clearAvatarSelections();
+            document.getElementById('selected-avatar').value = '';
+            selectedAvatar = '';
+            updateDefaultIndicator(false);
+        }
+        reader.readAsDataURL(file);
+    }
+    
+    function resetCustomUpload() {
+        fileInput.value = '';
+        uploadPreview.classList.remove('active');
+        customPreviewImage.src = '';
+    }
+    
+    function clearAvatarSelections() {
+        avatarOptions.forEach(option => {
+            option.classList.remove('selected');
+        });
+    }
+    
+    function restoreDefaultSelection() {
+        clearAvatarSelections();
+        const defaultOption = document.querySelector('[data-avatar="avatar_default.jpg"]');
+        if (defaultOption) {
+            defaultOption.classList.add('selected');
+            updateAvatarPreview('{% static "assets/avatar_default.jpg" %}');
+            selectedAvatar = 'avatar_default.jpg';
+            document.getElementById('selected-avatar').value = 'avatar_default.jpg';
+            updateDefaultIndicator(true);
+        }
+    }
+    
+    function updateAvatarPreview(src) {
+        const avatarPreview = document.getElementById('avatar-preview');
+        avatarPreview.src = src;
+        
+        // Forzar la actualización de la imagen
+        avatarPreview.onload = function() {
+            console.log('✅ Vista previa actualizada:', src);
+        };
+        avatarPreview.onerror = function() {
+            console.log('❌ Error cargando vista previa:', src);
+            this.src = '{% static "assets/avatar_default.jpg" %}';
+        };
+    }
+    
+    function updateDefaultIndicator(isDefault) {
+        const avatarPreview = document.querySelector('.avatar-preview');
+        if (isDefault) {
+            avatarPreview.classList.add('has-default');
+        } else {
+            avatarPreview.classList.remove('has-default');
+        }
+    }
+    
+    // INICIALIZACIÓN MEJORADA - Detectar el avatar actual del usuario
+    function initializeWithCurrentAvatar() {
+        const currentAvatarUrl = '{{ user.get_profile_picture_url }}';
+        console.log('🖼️ Avatar actual del usuario:', currentAvatarUrl);
+        
+        // Verificar si es un avatar del sistema
+        const isSystemAvatar = currentAvatarUrl.includes('/static/assets/');
+        const isUploadedAvatar = currentAvatarUrl.includes('/media/');
+        const isDefaultAvatar = currentAvatarUrl.includes('avatar_default.jpg');
+        
+        if (isSystemAvatar && !isDefaultAvatar) {
+            // Es un avatar del sistema - extraer el nombre del archivo
+            const avatarFileName = currentAvatarUrl.split('/').pop();
+            console.log('🎯 Avatar del sistema detectado:', avatarFileName);
+            
+            const matchingOption = document.querySelector(`[data-avatar="${avatarFileName}"]`);
+            if (matchingOption) {
+                matchingOption.classList.add('selected');
+                selectedAvatar = avatarFileName;
+                document.getElementById('selected-avatar').value = avatarFileName;
+                updateDefaultIndicator(avatarFileName === 'avatar_default.jpg');
+                updateAvatarPreview(currentAvatarUrl);
+            } else {
+                // Si no encuentra coincidencia, usar predeterminado
+                restoreDefaultSelection();
+            }
+        } else if (isUploadedAvatar) {
+            // Es una imagen subida - mostrar en custom tab
+            console.log('📸 Avatar personalizado detectado');
+            updateDefaultIndicator(false);
+            // Cambiar a pestaña custom
+            document.querySelector('[data-tab="custom"]').click();
+            // Mostrar la imagen actual en la preview
+            updateAvatarPreview(currentAvatarUrl);
+        } else {
+            // Es el avatar predeterminado o no se pudo determinar
+            console.log('🔹 Usando avatar predeterminado');
+            restoreDefaultSelection();
+        }
+    }
+    
+    // Inicializar cuando el DOM esté listo
+    initializeWithCurrentAvatar();
+    
+    // DEBUG: Mostrar información del estado actual
+    console.log('🔧 Estado inicial del editor de avatar:');
+    console.log(' - selectedAvatar:', selectedAvatar);
+    console.log(' - fileInput files:', fileInput.files.length);
+    console.log(' - uploadPreview activo:', uploadPreview.classList.contains('active'));
+});
+</script>
+{% endblock %}

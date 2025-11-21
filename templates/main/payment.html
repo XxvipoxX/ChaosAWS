@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Proceso de Pago - ChaosCompany{% endblock %}
+
+{% block content %}
+<div class="payment-modal-container">
+    <div class="payment-modal">
+        <form method="POST" action="{% url 'process_payment' %}" class="payment-form">
+            {% csrf_token %}
+            <input type="hidden" name="plan_type" value="{{ plan_type }}">
+            <input type="hidden" name="amount" value="{{ amount }}">
+            
+            <div class="payment-header">
+                <h2><i class="fas fa-lock"></i> Pago Seguro</h2>
+                <p>Completa tu suscripción ChaosCompany</p>
+            </div>
+
+            <!-- Resumen del pedido -->
+            <div class="payment-order-summary">
+                <h3 class="order-summary-title">Resumen del Pedido</h3>
+                <div class="order-detail">
+                    <span>Plan {{ plan_type|title }}</span>
+                    <span>
+                        {% if plan_type == 'free' %}
+                            Gratis
+                        {% else %}
+                            ${{ base_price }}
+                        {% endif %}
+                    </span>
+                </div>
+                {% if plan_type != 'free' %}
+                <div class="order-detail">
+                    <span>Impuestos (16%)</span>
+                    <span>${{ tax_amount }}</span>
+                </div>
+                {% endif %}
+                <div class="order-total">
+                    <span>Total a pagar:</span>
+                    <span class="amount amount-display">
+                        {% if plan_type == 'free' %}
+                            Gratis
+                        {% else %}
+                            ${{ amount }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="credit-card-form">
+                <div class="payment-input-container">
+                    <label class="payment-label" for="card_holder">Nombre en la tarjeta</label>
+                    <input
+                        placeholder="JUAN PEREZ"
+                        title="Nombre completo"
+                        name="card_holder"
+                        type="text"
+                        class="payment-input"
+                        id="card_holder"
+                        required
+                    />
+                </div>
+
+                <div class="payment-input-container">
+                    <label class="payment-label" for="card_number">Número de tarjeta</label>
+                    <input
+                        placeholder="4152 4578 7894 7891"
+                        title="Número de tarjeta"
+                        name="card_number"
+                        type="text"
+                        class="payment-input"
+                        id="card_number"
+                        maxlength="19"
+                        required
+                    />
+                </div>
+
+                <div class="payment-input-container">
+                    <label class="payment-label" for="expiry_date">Fecha de expiración</label>
+                    <input
+                        placeholder="MM/AA"
+                        title="Fecha de expiración"
+                        name="expiry_date"
+                        type="text"
+                        class="payment-input"
+                        id="expiry_date"
+                        maxlength="5"
+                        required
+                    />
+                </div>
+
+                <div class="payment-input-container">
+                    <label class="payment-label" for="cvv">CVV</label>
+                    <input
+                        placeholder="123"
+                        title="Código de seguridad"
+                        name="cvv"
+                        type="text"
+                        class="payment-input"
+                        id="cvv"
+                        maxlength="3"
+                        required
+                    />
+                </div>
+
+                <div class="payment-input-container">
+                    <label class="payment-label" for="email">Email para el recibo</label>
+                    <input
+                        placeholder="tu@email.com"
+                        title="Email"
+                        name="email"
+                        type="email"
+                        class="payment-input"
+                        id="email"
+                        value="{{ user.email }}"
+                        required
+                    />
+                </div>
+
+                <button type="submit" class="purchase-btn" id="pay-button">
+                    <i class="fas fa-lock"></i>
+                    {% if plan_type == 'free' %}
+                        ACTIVAR GRATIS
+                    {% else %}
+                        PAGAR ${{ amount }}
+                    {% endif %}
+                </button>
+
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Pago 100% seguro - Encriptación SSL</span>
+                </div>
+            </div>
+
+            <div class="payment-separator">
+                <hr class="line">
+                <p>o paga con e-wallet</p>
+                <hr class="line">
+            </div>
+
+            <div class="payment-options">
+                <button type="button" name="paypal" class="payment-option-btn">
+                    <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" width="124" height="33" viewBox="0 0 124 33">
+                        <path fill="#253B80" d="M46.211,6.749h-6.839c-0.468,0-0.866,0.34-0.939,0.802l-2.766,17.537c-0.055,0.346,0.213,0.658,0.564,0.658h3.265c0.468,0,0.866-0.34,0.939-0.803l0.746-4.73c0.072-0.463,0.471-0.803,0.938-0.803h2.165c4.505,0,7.105-2.18,7.784-6.5c0.306-1.89,0.013-3.375-0.872-4.415C50.224,7.353,48.5,6.749,46.211,6.749z M47,13.154c-0.374,2.454-2.249,2.454-4.062,2.454h-1.032l0.724-4.583c0.043-0.277,0.283-0.481,0.563-0.481h0.473c1.235,0,2.4,0,3.002,0.704C47.027,11.668,47.137,12.292,47,13.154z"/>
+                        <!-- Resto del SVG de PayPal -->
+                    </svg>
+                </button>
+                <button type="button" name="apple-pay" class="payment-option-btn">
+                    <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" width="80" height="30" viewBox="0 0 512 210.2">
+                        <path fill="#000" d="M93.6,27.1C87.6,34.2,78,39.8,68.4,39c-1.2-9.6,3.5-19.8,9-26.1c6-7.3,16.5-12.5,25-12.9C103.4,10,99.5,19.8,93.6,27.1 M102.3,40.9c-13.9-0.8-25.8,7.9-32.4,7.9c-6.7,0-16.8-7.5-27.8-7.3c-14.3,0.2-27.6,8.3-34.9,21.2c-15,25.8-3.9,64,10.6,85c7.1,10.4,15.6,21.8,26.8,21.4c10.6-0.4,14.8-6.9,27.6-6.9c12.9,0,16.6,6.9,27.8,6.7c11.6-0.2,18.9-10.4,26-20.8c8.1-11.8,11.4-23.3,11.6-23.9c-0.2-0.2-22.4-8.7-22.6-34.3c-0.2-21.4,17.5-31.6,18.3-32.2C123.3,42.9,107.7,41.3,102.3,40.9 M182.6,11.9v155.9h24.2v-53.3h33.5c30.6,0,52.1-21,52.1-51.4c0-30.4-21.1-51.2-51.3-51.2H182.6z M206.8,32.3h27.9c21,0,33,11.2,33,30.9c0,19.7-12,31-33.1,31h-27.8V32.3z"/>
+                        <!-- Resto del SVG de Apple Pay -->
+                    </svg>
+                </button>
+                <button type="button" name="google-pay" class="payment-option-btn">
+                    <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" width="80" height="30" viewBox="0 0 80 39">
+                        <path fill="#5F6368" d="M37.8 19.7V29H34.8V6H42.6C44.5 6 46.3001 6.7 47.7001 8C49.1001 19.1 44.6 19.8 42.6 19.8L37.8 19.7ZM37.8 8.8V16.8H42.8C43.9 16.8 45.0001 16.4 45.7001 15.6C47.3001 14.1 47.3 11.6 45.8 10.1L45.7001 10C44.9001 9.2 43.9 8.7 42.8 8.8H37.8Z"/>
+                        <!-- Resto del SVG de Google Pay -->
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Formatear número de tarjeta automáticamente
+    const cardNumber = document.getElementById('card_number');
+    cardNumber.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formattedValue = value.match(/.{1,4}/g)?.join(' ');
+        if (formattedValue) {
+            e.target.value = formattedValue;
+        }
+    });
+
+    // Formatear fecha de expiración automáticamente
+    const expiryDate = document.getElementById('expiry_date');
+    expiryDate.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+            e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+        } else {
+            e.target.value = value;
+        }
+    });
+
+    // Validar y limitar CVV a 3 dígitos
+    const cvv = document.getElementById('cvv');
+    cvv.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
+    });
+
+    // Formatear nombre en mayúsculas
+    const cardHolder = document.getElementById('card_holder');
+    cardHolder.addEventListener('input', function(e) {
+        e.target.value = e.target.value.toUpperCase();
+    });
+
+    // Simular procesamiento de pago
+    const paymentForm = document.querySelector('.payment-form');
+    const payButton = document.getElementById('pay-button');
+    
+    if (paymentForm && payButton) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            payButton.disabled = true;
+            payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESANDO...';
+            
+            // Simular delay de procesamiento
+            setTimeout(() => {
+                this.submit();
+            }, 2000);
+        });
+    }
+
+    // Placeholder dinámico para el monto
+    const amountDisplay = document.querySelector('.amount-display');
+    if (amountDisplay) {
+        const amount = parseFloat('{{ amount }}');
+        amountDisplay.textContent = amount.toLocaleString('es-MX', {
+            style: 'currency',
+            currency: 'MXN'
+        });
+    }
+
+    // Simular botones de e-wallet
+    document.querySelectorAll('.payment-option-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const method = this.getAttribute('name');
+            alert(`Método de pago seleccionado: ${method.toUpperCase()}\n\nEsta funcionalidad estaría integrada con la pasarela de pago correspondiente en producción.`);
+        });
+    });
+});
+</script>
+{% endblock %}

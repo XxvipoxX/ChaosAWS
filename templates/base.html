@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ChaosCompany{% endblock %}</title>
+</head>
+<body>
+    <link rel="stylesheet" href= "{% static "C:\Users\Vipo234\Desktop\ChaosCompanyV2.1\ChaosCompany\Pagina Web\static\styles.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Inicio</a></li>
+                <li><a href="{% url 'gamepass' %}">Gamepass</a></li>
+                <li><a href="{% url 'membresias' %}">Membresías</a></li>
+                <li><a href="{% url 'ventajas' %}">Ventajas</a></li>
+                <li><a href="{% url 'cart' %}">Carrito</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Perfil ({{ user.username }})</a></li>
+                    <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    <li><a href="{% url 'signup' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        © 2025 ChaosCompany. Todos los derechos reservados.
+    </footer>
+
+    <script src="{% static 'scripts.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
