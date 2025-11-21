@@ -1,0 +1,877 @@
+/* ===== ESTILOS CHAOSCOMPANY - ESTILO GEFORCE NOW ===== */
+:root {
+    --primary-color: #76b900;
+    --secondary-color: #000000;
+    --dark-bg: #000000;
+    --darker-bg: #0a0a0a;
+    --accent-bg: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #cccccc;
+    --card-bg: #1a1a1a;
+    --success-color: #76b900;
+    --error-color: #ff4444;
+    --warning-color: #ffaa00;
+    --border-radius: 10px;
+    --transition: all 0.3s ease;
+    --header-height: 70px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== HEADER CORREGIDO ===== */
+header {
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+}
+
+nav ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    transition: var(--transition);
+    display: block;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--primary-color);
+    background: rgba(118, 185, 0, 0.15);
+}
+
+/* ===== CONTENIDO PRINCIPAL - ORDENADO ===== */
+main {
+    flex: 1;
+    padding-top: var(--header-height);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+/* ===== SECCIÓN HERO CORREGIDA ===== */
+.hero {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    margin: 0 auto;
+    max-width: 1000px;
+    animation: fadeIn 1s ease-out;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #5a9e00;
+    transform: translateY(-2px);
+}
+
+.btn-primary { background: var(--primary-color); color: #000; }
+.btn-secondary { background: #333; color: white; }
+.btn-warning { background: var(--warning-color); color: #000; }
+.btn-outline-primary { 
+    background: transparent; 
+    border: 2px solid var(--primary-color); 
+    color: var(--primary-color); 
+}
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+/* ===== CARRUSEL ANIMADO CORREGIDO ===== */
+.animated-carousel {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
+    border-radius: var(--border-radius);
+    margin: 2rem auto;
+    max-width: 1200px;
+    z-index: 1;
+}
+
+.carousel-track {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    animation: scroll-left linear infinite;
+    white-space: nowrap;
+}
+
+.carousel-track.row1 {
+    top: 15px;
+    animation-duration: 40s;
+}
+
+.carousel-track.row2 {
+    top: 65px;
+    animation-duration: 50s;
+}
+
+.carousel-track.row3 {
+    top: 115px;
+    animation-duration: 60s;
+}
+
+.game-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 30px;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.game-item:hover {
+    transform: scale(1.05);
+}
+
+.game-item img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.game-item h3 {
+    font-size: 0.9em;
+    margin: 0;
+    white-space: nowrap;
+    color: var(--text-light);
+}
+
+/* ===== SECCIÓN DE CARACTERÍSTICAS CORREGIDA ===== */
+.features {
+    padding: 3rem 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+}
+
+.features h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.feature {
+    text-align: center;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature i {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.feature h3 {
+    font-size: 1.3em;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.feature p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* ===== MEMBRESÍAS CORREGIDAS ===== */
+.membership-section {
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.plan {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+}
+
+.plan.active {
+    border: 2px solid var(--primary-color);
+}
+
+.plan h3 {
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.plan .price {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.plan ul li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-muted);
+}
+
+.plan ul li::before {
+    content: "✔";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+}
+
+.current-plan {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-top: 2rem;
+    font-weight: bold;
+    background: rgba(118, 185, 0, 0.1);
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+}
+
+/* ===== BIBLIOTECA DE JUEGOS CORREGIDA ===== */
+.library-section {
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.library-section h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.library-section p {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+.filters {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.filters label {
+    color: var(--text-muted);
+    margin-right: 1rem;
+}
+
+.filters select {
+    background: #1a1a1a;
+    color: var(--text-light);
+    border: 1px solid #444;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.game-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(118, 185, 0, 0.2);
+}
+
+.game-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 1.5rem;
+}
+
+.game-info h3 {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    font-size: 1.1em;
+}
+
+.game-info p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ===== VENTAJAS CORREGIDAS ===== */
+.ventajas {
+    background: #1a1a1a;
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius);
+    margin: 2rem auto;
+    max-width: 1000px;
+    position: relative;
+    z-index: 1;
+}
+
+.ventajas h2 {
+    font-size: 2em;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.ventajas ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ventajas ul li {
+    font-size: 1em;
+    margin: 1rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.ventajas ul li::before {
+    content: "✔";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+}
+
+.faq {
+    padding: 3rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.faq h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.faq-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.faq-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1em;
+}
+
+.faq-item p {
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ===== FORMULARIOS NUEVO DISEÑO ===== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height));
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.form-card {
+    background-image: linear-gradient(163deg, #76b900 0%, #3700ff 100%);
+    border-radius: 22px;
+    transition: all 0.3s;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-card-inner {
+    border-radius: 0;
+    transition: all 0.2s;
+    background-color: #1a1a1a;
+    border-radius: 20px;
+    padding: 0;
+}
+
+.form-card:hover {
+    box-shadow: 0px 0px 30px 1px rgba(118, 185, 0, 0.3);
+}
+
+.form-card-inner:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.4em;
+    background-color: #171717;
+    border-radius: 25px;
+    transition: 0.4s ease-in-out;
+}
+
+.form-heading {
+    text-align: center;
+    margin: 2em;
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border-radius: 25px;
+    padding: 0.6em;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #171717;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+
+.form-input-icon {
+    height: 1.3em;
+    width: 1.3em;
+    fill: white;
+}
+
+.form-input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+    font-size: 1rem;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 2.5em;
+    gap: 0.5rem;
+}
+
+.form-button-primary {
+    padding: 0.8em 1.5em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.form-button-primary:hover {
+    background-color: black;
+    color: white;
+}
+
+.form-button-secondary {
+    padding: 0.8em 1.5em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.form-button-secondary:hover {
+    background-color: black;
+    color: white;
+}
+
+.form-button-link {
+    margin-bottom: 2em;
+    padding: 0.8em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.form-button-link:hover {
+    background-color: #ff4444;
+    color: white;
+}
+
+/* ===== PERFIL DE USUARIO ===== */
+.profile-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    background: #1a1a1a;
+    color: var(--text-light);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    animation: fadeIn 1s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    margin-bottom: 1rem;
+    background: #333;
+    object-fit: cover;
+}
+
+.profile-header h2 {
+    margin: 0;
+    font-size: 1.8em;
+    color: var(--primary-color);
+}
+
+.membership {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: var(--primary-color);
+    color: #000000;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.profile-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.profile-details li {
+    margin-bottom: 0.8rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.8rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-details li strong {
+    color: var(--primary-color);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.btn-edit, .btn-home {
+    display: block;
+    text-align: center;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-edit:hover, .btn-home:hover {
+    background: #5a9e00;
+}
+
+/* ===== PIE DE PÁGINA ===== */
+footer {
+    background: #1a1a1a;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: auto;
+    border-top: 1px solid #333;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== DISEÑO RESPONSIVE ===== */
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+    }
+    
+    nav ul {
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    nav ul li a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .hero {
+        padding: 3rem 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2em;
+    }
+    
+    .hero p {
+        font-size: 1.1em;
+    }
+    
+    .features {
+        padding: 2rem 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .plans-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .game-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .animated-carousel {
+        height: 150px;
+    }
+    
+    .game-item img {
+        width: 80px;
+        height: 60px;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --header-height: 55px;
+    }
+    
+    nav ul {
+        gap: 0.5rem;
+    }
+    
+    nav ul li a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .hero {
+        padding: 2rem 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.8em;
+    }
+    
+    .features, .membership-section, .library-section, .ventajas, .faq {
+        padding: 1.5rem 1rem;
+    }
+    
+    .profile-container, .edit-profile-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+}

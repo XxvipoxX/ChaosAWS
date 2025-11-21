@@ -1,0 +1,770 @@
+/* ===== ESTILOS CHAOSCOMPANY - ESTILO GEFORCE NOW (ACTUALIZADO PARA CONSISTENCIA EN TODO EL SITIO) ===== */
+:root {
+    --primary-color: #76b900; /* Verde NVIDIA/GeForce NOW */
+    --secondary-color: #000000;
+    --dark-bg: #000000;
+    --darker-bg: #0a0a0a;
+    --accent-bg: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #cccccc;
+    --card-bg: #1a1a1a;
+    --success-color: #76b900;
+    --error-color: #ff4444;
+    --warning-color: #ffaa00;
+    --border-radius: 10px;
+    --transition: all 0.3s ease;
+    --font-heading: 'Roboto', sans-serif; /* Fuente similar a GeForce NOW */
+    --font-body: 'Arial', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== ANIMACIONES (MEJORADAS PARA GEFORCE NOW) ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== ENCABEZADO Y NAVEGACIÓN (ACTUALIZADO PARA PARECERSE A GEFORCE NOW) ===== */
+header {
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    transition: var(--transition);
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--primary-color);
+    background: rgba(118, 185, 0, 0.15);
+}
+
+/* ===== MENSAJES ===== */
+.messages {
+    max-width: 1200px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.message.success {
+    background: rgba(118, 185, 0, 0.2);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.message.error {
+    background: rgba(255, 68, 68, 0.2);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+}
+
+.message.info {
+    background: rgba(0, 123, 255, 0.2);
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+/* ===== CONTENIDO PRINCIPAL (ACTUALIZADO PARA CONSISTENCIA) ===== */
+main {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ===== SECCIÓN HERO (MEJORADA PARA GEFORCE NOW) ===== */
+.hero {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    border-radius: var(--border-radius);
+    margin: 2rem auto;
+    max-width: 1000px;
+    animation: fadeIn 1s ease-out;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: var(--text-light);
+    font-family: var(--font-heading);
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    color: var(--text-muted);
+}
+
+/* ===== BOTONES (ESTILOS DE GEFORCE NOW) ===== */
+.btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background: var(--primary-color);
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #5a9e00;
+    transform: translateY(-2px);
+}
+
+.btn-primary { background: var(--primary-color); color: #000; }
+.btn-secondary { background: #333; color: white; }
+.btn-warning { background: var(--warning-color); color: #000; }
+.btn-outline-primary { 
+    background: transparent; 
+    border: 2px solid var(--primary-color); 
+    color: var(--primary-color); 
+}
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: #000;
+}
+
+/* ===== CARRUSEL ANIMADO (MEJORADO PARA FLUJO INFINITO COMO EN GEFORCE NOW) ===== */
+.animated-carousel {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
+    border-radius: var(--border-radius);
+    margin: 3rem auto;
+}
+
+.carousel-track {
+    position: absolute;
+    top: 0;
+    width: max-content; /* Mejorado para flujo infinito */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    animation: scroll-left linear infinite;
+    white-space: nowrap;
+}
+
+.carousel-track.row1 {
+    top: 10px;
+    animation-duration: 40s; /* Ajustado para velocidades sutiles */
+    background: rgba(118, 185, 0, 0.1);
+}
+
+.carousel-track.row2 {
+    top: 70px;
+    animation-duration: 60s;
+}
+
+.carousel-track.row3 {
+    top: 130px;
+    animation-duration: 80s;
+}
+
+.game-item {
+    margin: 0 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.game-item:hover {
+    transform: scale(1.1);
+}
+
+.game-item img {
+    width: 120px;
+    height: 90px;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.game-item h3 {
+    font-size: 1em;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+}
+
+/* ===== CARRUSEL DE JUEGOS DESTACADOS (ACTUALIZADO PARA SLIDER COMO GEFORCE NOW) ===== */
+.carrusel {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    margin: 3rem auto;
+    background: var(--accent-bg);
+}
+
+.carrusel-inner {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carrusel-item {
+    flex: 0 0 100%;
+    position: relative;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carrusel-item.active {
+    opacity: 1;
+}
+
+.carrusel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    max-width: 50%;
+}
+
+.slide-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+}
+
+.slide-content p {
+    font-size: 1.2em;
+    margin-bottom: 1.5rem;
+}
+
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition);
+}
+
+.carrusel-btn:hover {
+    background: rgba(118, 185, 0, 0.7);
+}
+
+.carrusel-btn.prev { left: 1rem; }
+.carrusel-btn.next { right: 1rem; }
+
+.indicators {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.indicator.active {
+    background: var(--primary-color);
+}
+
+/* ===== CATEGORÍAS (ESTILO GRID COMO GEFORCE NOW) ===== */
+.categories-section {
+    margin: 4rem 0;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.category-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(118, 185, 0, 0.2);
+}
+
+.category-card h5 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.category-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.category-card ul li {
+    margin: 0.5rem 0;
+    color: var(--text-muted);
+}
+
+.btn-ver-mas {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: #000;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* ===== VENTAJAS ===== */
+.ventajas {
+    background: #1a1a1a;
+    padding: 4rem 2rem;
+    border-radius: var(--border-radius);
+    margin: 3rem auto;
+    max-width: 1000px;
+}
+
+.ventajas h2 {
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.ventajas ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ventajas ul li {
+    font-size: 1.1em;
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--text-muted);
+}
+
+.ventajas ul li::before {
+    content: "✔";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+}
+
+.faq {
+    margin: 4rem 0;
+}
+
+.faq-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* ===== MODAL ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background: #1a1a1a;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+.modal-body {
+    margin: 2rem 0;
+}
+
+.loading-spinner {
+    border: 4px solid #333;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.badge.bg-primary { background: var(--primary-color); color: #000; }
+.badge.bg-success { background: var(--success-color); color: #000; }
+.badge.bg-warning { background: var(--warning-color); color: #000; }
+
+/* ===== PIE DE PÁGINA (ACTUALIZADO PARA GEFORCE NOW) ===== */
+footer {
+    background: #1a1a1a;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: auto;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ===== CLASES DE UTILIDAD ===== */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.highlight { color: var(--primary-color); font-weight: bold; }
+.bg-light { background: #2a2a2a !important; }
+.bg-primary { background: var(--primary-color) !important; color: #000 !important; }
+.bg-warning { background: var(--warning-color) !important; color: #000 !important; }
+.text-white { color: white !important; }
+.text-light { color: var(--text-light) !important; }
+.w-100 { width: 100% !important; }
+
+/* ===== ESTILOS ESPECÍFICOS PARA GAMEPASS E INDEX (INTEGRADOS DE CODE1 Y CODE2) ===== */
+/* Para secciones como "Tu Biblioteca de Juegos" en gamepass.html */
+.library-section {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.library-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.library-section p {
+    font-size: 1.2em;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filters select {
+    padding: 0.5rem 1rem;
+    background: var(--accent-bg);
+    color: var(--text-light);
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: var(--transition);
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 1rem;
+}
+
+.game-info h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5rem;
+}
+
+.game-info p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+/* Para secciones como "La Potencia de GeForce RTX" en ambas páginas */
+.features-grid, .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.feature, .plan {
+    background: var(--accent-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.feature h3, .plan h3 {
+    font-size: 1.8em;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.feature p, .plan p {
+    color: var(--text-muted);
+}
+
+.plan .price {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.plan ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.plan ul li {
+    margin: 0.5rem 0;
+}
+
+/* Para la sección de membresías premium */
+.premium-section {
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.premium-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+}
+
+.premium-section p {
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+}
+
+.premium-section a {
+    background: var(--primary-color);
+    color: #000;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.current-plan {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 2rem;
+}
+
+/* ===== DISEÑO RESPONSIVE (MEJORADO PARA DISPOSITIVOS) ===== */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2em;
+    }
+    
+    .hero p {
+        font-size: 1.2em;
+    }
+    
+    .features-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .membresias {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .animated-carousel {
+        height: auto;
+    }
+    
+    .carousel-track {
+        position: relative;
+        height: 80px;
+        animation-duration: 20s !important;
+    }
+    
+    .game-item img {
+        width: 80px;
+        height: 60px;
+    }
+    
+    .game-item h3 {
+        font-size: 0.9em;
+    }
+    
+    .carrusel {
+        height: 400px;
+    }
+    
+    .slide-content {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        text-align: center;
+    }
+    
+    .row {
+        margin: 0;
+    }
+    
+    .col-md-4, .col-lg-4, .col-md-6 {
+        margin-bottom: 2rem;
+    }
+
+    .game-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 4rem 1rem;
+    }
+    
+    .features, .membership-section, .categories-section {
+        padding: 2rem 1rem;
+    }
+    
+    .login-box, .profile-container, .edit-profile-container {
+        padding: 2rem 1rem;
+        margin: 1rem;
+    }
+}
